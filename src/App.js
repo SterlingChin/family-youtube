@@ -1,44 +1,45 @@
 import React, { Component } from 'react';
-import YouTube from 'react-youtube';
-import logo from './logo.svg';
+import Videos from './Videos';
 import './App.css';
+import SideMenu from './SideMenu'
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showVideos: true
+    }
+  }
+
+  _handleMenuClick = () => {
+    
+  }
+
   render() {
-    const opts = {
-      height: '390',
-      width: '640',
-      playerVars: { 
-        autoplay: 4
-      }
-    };
+    const styles = this.styles()
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>   
-         
-        <YouTube
-        videoId="dIVoU_WKV20"
-        opts={opts}
-        onReady={this._onReady}
-      />
-        <YouTube
-        videoId="DwUyi8wkb74"
-        opts={opts}
-        onReady={this._onReady}
-      />
+      <div style={styles.App}>
+        <SideMenu />
+        {this.state.showVideos ? (
+          <div style={styles.main}>
+            <Videos />
+          </div>
+        ) : null}
       </div>
     )
   };
- 
-  _onReady(event) {
-    // access to player in all event handlers via event.target 
-    event.target.pauseVideo();
+
+  styles = () => {
+    return {
+      App: {
+        display: 'flex',
+      },
+      main: {
+        width: '100%',
+        height: '100vh',
+        overflow: 'scroll'
+      }
+    }
   }
 }
 
